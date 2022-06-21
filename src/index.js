@@ -154,5 +154,5 @@ window.mobilecheck = function() {
 
 if (mobilecheck()) {
   document.getElementById("help-help").innerText =
-    "Tilt your phone to navigate.";
+    "find me on a laptop/pc.";
 }
