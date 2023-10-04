@@ -10,7 +10,7 @@ module.exports = {
   margin: 16,                         // The amount of empty space around the maze.
   initialSize: 5,                     // Size of the first level. Needs to be odd.
   levelIncrease: 2,                   // Increase in size per level. This needs to be even.
-  wallImage:'static/odowwavy.png',      // The wall texture image.
+  wallImage:'static/stone.png',      // The wall texture image.
   groundImage: 'static/concrete.png', // The floor texture image.
   timeStep: 1.5/60,                   // The timestep for the physics engine.
   rollingSound: 'static/rolling.wav', // The sound made when the ball rolls.

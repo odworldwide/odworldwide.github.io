@@ -63,18 +63,85 @@ async function main() {
   // Our main game loop.
   async function loop() {
     // Apply a force to the player according to what keys are being pressed.
-    if (kb.ArrowRight) model.pushPlayer(given.player.speed, 0);
-    if (kb.ArrowLeft) model.pushPlayer(-given.player.speed, 0);
-    if (kb.ArrowUp) model.pushPlayer(0, given.player.speed);
-    if (kb.ArrowDown) model.pushPlayer(0, -given.player.speed);
-    if (kb.Digit1) view.setResolution(1);
-    if (kb.Digit2) view.setResolution(2);
-    if (kb.Digit3) view.setResolution(3);
-    if (kb.Digit4) view.setResolution(4);
-    if (kb.Digit5) view.setResolution(5);
-    if (kb.Digit6) view.setResolution(6);
-    if (kb.Digit7) view.setResolution(7);
-    if (kb.Digit8) view.setResolution(8);
+    // if (kb.ArrowRight) model.pushPlayer(given.player.speed, 0);
+    // if (kb.ArrowLeft) model.pushPlayer(-given.player.speed, 0);
+    // if (kb.ArrowUp) model.pushPlayer(0, given.player.speed);
+    // if (kb.ArrowDown) model.pushPlayer(0, -given.player.speed);
+    // if (kb.Digit1) view.setResolution(1);
+    // if (kb.Digit2) view.setResolution(2);
+    // if (kb.Digit3) view.setResolution(3);
+    // if (kb.Digit4) view.setResolution(4);
+    // if (kb.Digit5) view.setResolution(5);
+    // if (kb.Digit6) view.setResolution(6);
+    // if (kb.Digit7) view.setResolution(7);
+    // if (kb.Digit8) view.setResolution(8);
+
+    // Apply a force to the player according to what keys are being pressed.
+  let forceX = 0;
+  let forceY = 0;
+  if (kb.ArrowRight) forceX += given.player.speed;
+  if (kb.ArrowLeft) forceX -= given.player.speed;
+  if (kb.ArrowUp) forceY += given.player.speed;
+  if (kb.ArrowDown) forceY -= given.player.speed;
+
+  // Q: How can I handle permission requests for accessing the device's motion sensors in iOS?
+  // A: Request permission to access the device's motion sensors
+
+// Request permission to access the device's motion sensors
+if (Platform.OS === 'ios') {
+  request(PERMISSIONS.IOS.MOTION)
+    .then(result => {
+      if (result === RESULTS.GRANTED) {
+        // The user has granted permission to access the device's motion sensors
+        // Add event listeners for device orientation and motion
+        DeviceMotionEvent.addEventListener('deviceorientation', handleDeviceOrientation);
+        DeviceMotionEvent.addEventListener('devicemotion', handleDeviceMotion);
+      }
+    })
+    .catch(console.error);
+} else if (Platform.OS === 'android') {
+  request(PERMISSIONS.ANDROID.ACCELEROMETER)
+    .then(result => {
+      if (result === RESULTS.GRANTED) {
+        // The user has granted permission to access the device's motion sensors
+        // Add event listeners for device orientation and motion
+        DeviceMotionEvent.addEventListener('deviceorientation', handleDeviceOrientation);
+        DeviceMotionEvent.addEventListener('devicemotion', handleDeviceMotion);
+      }
+    })
+    .catch(console.error);
+}
+
+// Handle device orientation changes
+function handleDeviceOrientation(event) {
+  // Get the device's orientation angles
+  const alpha = event.alpha; // Z-axis rotation (0 to 360)
+  const beta = event.beta; // X-axis rotation (-180 to 180)
+  const gamma = event.gamma; // Y-axis rotation (-90 to 90)
+
+  // Calculate the force to apply to the player based on the device's orientation
+  const forceX = gamma / 10;
+  const forceY = beta / 10;
+
+  // Apply the force to the player
+  model.pushPlayer(forceX, forceY);
+}
+
+// Handle device motion changes
+function handleDeviceMotion(event) {
+  // Get the device's motion acceleration
+  const accelerationX = event.accelerationIncludingGravity.x;
+  const accelerationY = event.accelerationIncludingGravity.y;
+  const accelerationZ = event.accelerationIncludingGravity.z;
+
+  // Calculate the resolution based on the device's motion
+  const resolution = Math.floor(Math.abs(accelerationX + accelerationY + accelerationZ) / 10) + 1;
+
+  // Set the game resolution
+  view.setResolution(resolution);
+}
+
+
 
     // If the H key is being pressed, show help.
     if (kb.KeyH) {

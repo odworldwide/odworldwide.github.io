@@ -19101,7 +19101,7 @@
             margin: 16,
             initialSize: 5,
             levelIncrease: 2,
-            wallImage: "static/ODOWWavyTile.png",
+            wallImage: "static/concrete_blood.png",
             groundImage: "static/concrete_blood.png",
             timeStep: 1.5 / 60,
             rollingSound: "static/rolling.wav",
