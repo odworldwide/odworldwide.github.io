@@ -19106,7 +19106,7 @@
             timeStep: 1.5 / 60,
             rollingSound: "static/rolling.wav",
             clinkSound: "static/clink.wav",
-            dingSound: "static/ding.wav",
+            dingSound: "static/ding_shifted.wav",
             initialResolution: 4
         }
     }, {}],

@@ -15,6 +15,6 @@ module.exports = {
   timeStep: 1.5/60,                   // The timestep for the physics engine.
   rollingSound: 'static/rolling.wav', // The sound made when the ball rolls.
   clinkSound: 'static/clink.wav',     // The sound made when the ball hits something.
-  dingSound: 'static/ding.wav',       // The sound made at the end of each level.
+  dingSound: 'static/ding_shifted.wav',       // The sound made at the end of each level.
   initialResolution: 4                // Initial resolution scaling.
 };
