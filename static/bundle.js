@@ -19217,7 +19217,7 @@
             return check
         };
         if (mobilecheck()) {
-            document.getElementById("help-help").innerText = "Play me on a laptop."
+            document.getElementById("help-help").innerText = "available on laptop."
         }
     }, {
         "./given": 60,
